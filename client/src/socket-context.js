@@ -4,8 +4,8 @@ import Peer from 'simple-peer';
 
 const SocketContext = createContext();
 
-const socket = io('http://localhost:5050'); // Change this url for production with deployed server url
-
+//const socket = io('http://localhost:5050'); // Change this url for production with deployed server url
+const socket = io('https://stream-me-up.herokuapp.com')
 const ContextProvider = ({ children }) => {
 
     const [stream, setStream] = useState(null);
