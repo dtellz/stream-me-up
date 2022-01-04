@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 
 
 const app = express();
+app.use(cors());
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
@@ -12,7 +13,7 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 })
-app.use(cors());
+
 
 const PORT = process.env.PORT || 5050;
 
@@ -29,7 +30,7 @@ io.on('connection', socket => {
     socket.on('calluser', ({ userToCall, signalData, from, name }) => {
         io.to(userToCall).emit('calluser', { signal: signalData, from, name });
     })
-    socket.on('answercall', () => {
+    socket.on('answercall', (data) => {
         io.to(data.to).emit('callaccepted', data.signal);
     })
 })
